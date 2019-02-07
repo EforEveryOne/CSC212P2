@@ -3,6 +3,7 @@ package edu.smith.cs.csc212.p2;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
+import java.util.Random;
 
 /**
  * It would be awful nice to have multi-colored rocks at random.
@@ -15,6 +16,8 @@ public class Rock extends WorldObject {
 	 * https://en.wikipedia.org/wiki/Shades_of_gray#Cool_grays
 	 * https://en.wikipedia.org/wiki/Shades_of_gray#Warm_grays
 	 */
+	
+//	Currently only 9 colors for rocks.
 	Color[] ROCK_COLORS = new Color[] {
 			new Color(144,144,192),
 			new Color(145,163,176),
@@ -28,20 +31,34 @@ public class Rock extends WorldObject {
 	};
 //	private Color color;
 	
-	int color;
+	public Color color;
 	
 	
 
+// Assign each rock to a number, pick a random number, get a random color, return I, pass I into the setColor(i);
+//	public Color setColor() {
+//		for (int i = 0; i < ROCK_COLORS.length; i++) {
+//			Color color = ROCK_COLORS[i];
+//		}
+//		return ROCK_COLORS[this.color];
+//		return null;
+
+		
+	
 	// TODO(lab): introduce a member here that indexes the ROCK_COLORS array.
 	
 	
 	/**
 	 * Construct a Rock in our world.
+	 * @param color 
 	 * @param color2 - the grid world.
 	 */
-	public Rock(int color, World world) {
-//		super(color2);
-//		this.color = world;
+	public Rock(World world) {
+		super(world);
+//		in the rock object, we are
+		this.color = ROCK_COLORS[rand.nextInt(ROCK_COLORS.length)];
+		
+		
 		
 		// TODO(lab): initialize your rock color index to a random number!
 		// Note that all WorldObjects have a ``rand`` available so you don't need to make one.
@@ -53,7 +70,7 @@ public class Rock extends WorldObject {
 	@Override
 	public void draw(Graphics2D g) {
 		// TODO(lab): use the right color in here...
-		g.setColor(Color.gray);
+		g.setColor(this.color);
 		RoundRectangle2D rock = new RoundRectangle2D.Double(-.5,-.5,1,1,0.3,0.3);
 		g.fill(rock);
 	}

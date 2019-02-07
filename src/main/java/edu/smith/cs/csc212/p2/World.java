@@ -145,7 +145,7 @@ public class World {
 	 * @return the Rock.
 	 */
 	public Rock insertRockRandomly(int color) {
-		Rock r = new Rock(color, this);
+		Rock r = new Rock(this);
 		insertRandomly(r);
 		return r;
 	}
