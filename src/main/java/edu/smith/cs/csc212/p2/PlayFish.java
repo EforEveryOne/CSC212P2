@@ -16,14 +16,9 @@ import me.jjfoley.gfx.TextBox;
  * @author jfoley
  */
 public class PlayFish extends GFX {
-	/**
-	 * Game size (visual). TODO Try changing this to 600.
-	 */
-	public static int VISUAL_GRID_SIZE = 400;
-	/**
-	 * Game size (logical). TODO Try changing this to 15 or so.
-	 */
-	public static int LOGICAL_GRID_SIZE = 10;
+
+	public static int VISUAL_GRID_SIZE = 900;
+	public static int LOGICAL_GRID_SIZE = 16;
 	/**
 	 * The words appear in the top part of the screen.
 	 */

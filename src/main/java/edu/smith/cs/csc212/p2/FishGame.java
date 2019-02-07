@@ -60,7 +60,7 @@ public class FishGame {
 		// TODO(lab) Generate some more rocks!
 		// TODO(lab) Make 5 into a constant, so it's easier to find & change.
 		for (int i=0; i<5; i++) {
-			world.insertRockRandomly();
+			world.insertRockRandomly(i);
 		}
 		
 		// TODO(lab) Make the snail!
@@ -77,6 +77,8 @@ public class FishGame {
 			Fish friend = world.insertFishRandomly(ft);
 			missing.add(friend);
 		}
+		
+//		for (int i = 1; i < Rock.)
 	}
 	
 	
