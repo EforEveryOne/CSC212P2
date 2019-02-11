@@ -55,7 +55,9 @@ public class Rock extends WorldObject {
 	 */
 	public Rock(World world) {
 		super(world);
-//		in the rock object, we are
+//		in the rock object, we are putting a color value to it. and the color when a rock is created
+//		will be randomly selected form the array of rocks, based on the array lengthy.
+//		in the draw method is where the rock actually gets its color.
 		this.color = ROCK_COLORS[rand.nextInt(ROCK_COLORS.length)];
 		
 		
@@ -69,8 +71,10 @@ public class Rock extends WorldObject {
 	 */
 	@Override
 	public void draw(Graphics2D g) {
-		// TODO(lab): use the right color in here...
+//		done i think
+//		this is where the rock gets its color, from the ROCK_COLORS array.
 		g.setColor(this.color);
+		
 		RoundRectangle2D rock = new RoundRectangle2D.Double(-.5,-.5,1,1,0.3,0.3);
 		g.fill(rock);
 	}

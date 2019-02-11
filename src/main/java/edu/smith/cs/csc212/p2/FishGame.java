@@ -23,6 +23,10 @@ public class FishGame {
 	 * The home location.
 	 */
 	FishHome home;
+
+//	Snail creation?
+//	Snail snail;
+	
 	/**
 	 * These are the missing fish!
 	 */
@@ -56,21 +60,28 @@ public class FishGame {
 		
 		// Add a home!
 		home = world.insertFishHome();
-		
-		// TODO(lab) Generate some more rocks!
-		// TODO(lab) Make 5 into a constant, so it's easier to find & change.
-		for (int i=0; i<5; i++) {
+
+// What does the difference matter here?
+//		public static final int NUM_ROCKS
+		int rock_spawn = 10;
+		for (int i = 0; i < rock_spawn; i++) {
 			world.insertRockRandomly(i);
 		}
 		
-		// TODO(lab) Make the snail!
+		for (int i = 0; i < 6; i++) {
+			world.insertSnailRandomly();
+		}
 		
 		// Make the player out of the 0th fish color.
 		player = new Fish(0, world);
+		
 		// Start the player at "home".
 		player.setPosition(home.getX(), home.getY());
 		player.markAsPlayer();
 		world.register(player);
+//		"register" is what draws/creates the actual object graphics
+//		world.register(snail);
+		
 		
 		// Generate fish of all the colors but the first into the "missing" List.
 		for (int ft = 1; ft < Fish.COLORS.length; ft++) {
@@ -120,7 +131,8 @@ public class FishGame {
 				
 				// Remove from world.
 				// TODO(lab): add to found instead! (So we see objectsFollow work!)
-				world.remove(wo);
+				found.add((Fish) wo);
+//				world.remove(wo);
 				
 				// Increase score when you find a fish!
 				score += 10;
@@ -129,8 +141,11 @@ public class FishGame {
 		
 		// Make sure missing fish *do* something.
 		wanderMissingFish();
+		
+		
 		// When fish get added to "found" they will follow the player around.
 		World.objectsFollow(player, found);
+		
 		// Step any world-objects that run themselves.
 		world.stepAll();
 	}
@@ -143,7 +158,9 @@ public class FishGame {
 		for (Fish lost : missing) {
 			// 30% of the time, lost fish move randomly.
 			if (rand.nextDouble() < 0.3) {
-				// TODO(lab): What goes here?
+				
+//				For every lost fish, the game checks a percentage if they move, if yes, we call this method for the percentage that do move.
+				 lost.moveRandomly();
 			}
 		}
 	}
