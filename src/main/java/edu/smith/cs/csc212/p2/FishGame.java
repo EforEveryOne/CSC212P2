@@ -63,12 +63,14 @@ public class FishGame {
 
 // What does the difference matter here?
 //		public static final int NUM_ROCKS
-		int rock_spawn = 10;
+		Random rand = ThreadLocalRandom.current();
+		int rock_spawn = rand.nextInt(15);
 		for (int i = 0; i < rock_spawn; i++) {
 			world.insertRockRandomly(i);
 		}
-		
-		for (int i = 0; i < 6; i++) {
+//		Crating a random amount of snails.
+		int rand_snail_spawn = rand.nextInt(8);
+		for (int i = 0; i < rand_snail_spawn; i++) {
 			world.insertSnailRandomly();
 		}
 		
@@ -88,8 +90,6 @@ public class FishGame {
 			Fish friend = world.insertFishRandomly(ft);
 			missing.add(friend);
 		}
-		
-//		for (int i = 1; i < Rock.)
 	}
 	
 	
@@ -127,15 +127,16 @@ public class FishGame {
 			// It is missing if it's in our missing list.
 			if (missing.contains(wo)) {
 				// Remove this fish from the missing list.
-				missing.remove(wo);
-				
-				// Remove from world.
-				// TODO(lab): add to found instead! (So we see objectsFollow work!)
+//				We are explicitly telling java this is a Fish class object that we are removing.
+				missing.remove((Fish) wo);
+//				Now we add the fish to our found list (the found fish follow us around).
 				found.add((Fish) wo);
-//				world.remove(wo);
 				
 				// Increase score when you find a fish!
 				score += 10;
+//				Use if statements to check color for fish points. Not tied to actual fish.
+				
+				
 			}
 		}
 		

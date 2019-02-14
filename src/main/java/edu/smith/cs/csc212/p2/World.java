@@ -177,6 +177,12 @@ public class World {
 		return snail;
 	}
 	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Determine if a WorldObject can swim to a particular point.
 	 * 
@@ -196,16 +202,27 @@ public class World {
 		// We will need to look at who all is in the spot to determine if we can move there.
 		List<WorldObject> inSpot = this.find(x, y);
 		
+		
+		
+		
+		
+		
 		for (WorldObject it : inSpot) {
-			// TODO(P2): Don't let us move over rocks as a Fish.
-			// The other fish shouldn't step "on" the player, the player should step on the other fish.
+//			Check if rock. If rock, can't move there.
+			if (it instanceof Rock) {
+				return false;
+			}
+//			Checking for fish that are not the player. (the player needs to "Step" on other fish)
+			if (it instanceof Fish && isPlayer == false) {
+				return false;	
+			}
+			
 			if (it instanceof Snail) {
 				// This if-statement doesn't let anyone step on the Snail.
 				// The Snail(s) are not gonna take it.
 				return false;
 			}
 		}
-		
 		// If we didn't see an obstacle, we can move there!
 		return true;
 	}
@@ -219,6 +236,11 @@ public class World {
 		}
 	}
 	
+	
+	
+	
+	
+	
 	/**
 	 * This signature is a little scary, but we need to support any subclass of WorldObject.
 	 * We don't know followers is a {@code List<Fish>} but it should work no matter what!
@@ -226,6 +248,8 @@ public class World {
 	 * @param followers a set of objects to follow the leader.
 	 */
 	public static void objectsFollow(WorldObject target, List<? extends WorldObject> followers) {
+		
+		
 		// TODO(P2) Comment this method!
 		// What is recentPositions?
 		// What is followers?
