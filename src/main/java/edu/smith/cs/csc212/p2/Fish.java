@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
+
 /**
  * Most Fish behavior lives up in WorldObject (a Fish just looks special!).
  * Or it is in PlayFish, where the missing/found and player fish all act different!
@@ -18,15 +19,18 @@ public class Fish extends WorldObject {
 	public static Color[] COLORS = {
 			Color.red,
 			Color.green,
-			Color.yellow,
-			Color.cyan,
-			Color.MAGENTA,
-			Color.ORANGE,
-			Color.WHITE,
+			Color.green,
+			Color.green,
+			Color.green,
+			Color.orange,
+			Color.orange,
+			Color.orange,
 			Color.blue,
-			Color.pink
+			Color.blue,
+			Color.WHITE
 			// TODO: (P2) Maybe make a special fish that is more points?
 	};
+	
 	/**
 	 * This is an index into the {@link #COLORS} array.
 	 */
@@ -35,6 +39,7 @@ public class Fish extends WorldObject {
 	 * Whether or not this is the player;
 	 */
 	boolean player = false;
+	boolean fastScared;
 	
 	/**
 	 * Called only on the Fish that is the player!
@@ -49,9 +54,10 @@ public class Fish extends WorldObject {
 	 * @param color Color by number.
 	 * @param world The world itself.
 	 */
-	public Fish(int color, World world) {
+	public Fish(int color, World world, boolean fastScared) {
 		super(world);
 		this.color = color;
+		this.fastScared = rand.nextBoolean();
 	}
 	
 	/**

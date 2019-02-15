@@ -111,6 +111,12 @@ public abstract class WorldObject {
 		}
 		return false;
 	}
+	
+	
+//	Check if it's a rock!
+	public boolean isRock() {
+		return this instanceof Rock;
+	}
 
 	/**
 	 * Is this a fish?

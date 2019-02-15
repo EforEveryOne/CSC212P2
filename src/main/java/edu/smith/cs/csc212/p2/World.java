@@ -150,13 +150,19 @@ public class World {
 		return r;
 	}
 	
+	public FallingRock insertFallingRockRandomly(int color) {
+		FallingRock r = new FallingRock(this);
+		insertRandomly(r);
+		return r;
+	}
+	
 	/**
 	 * Insert a new Fish into the world at random of a specific color.
 	 * @param color - the color of the fish.
 	 * @return the new fish itself.
 	 */
 	public Fish insertFishRandomly(int color) {
-		Fish f = new Fish(color, this);
+		Fish f = new Fish(color, this, false);
 		insertRandomly(f);
 		return f;
 	}
@@ -177,12 +183,6 @@ public class World {
 		return snail;
 	}
 	
-	
-	
-	
-	
-	
-	
 	/**
 	 * Determine if a WorldObject can swim to a particular point.
 	 * 
@@ -201,12 +201,6 @@ public class World {
 		
 		// We will need to look at who all is in the spot to determine if we can move there.
 		List<WorldObject> inSpot = this.find(x, y);
-		
-		
-		
-		
-		
-		
 		for (WorldObject it : inSpot) {
 //			Check if rock. If rock, can't move there.
 			if (it instanceof Rock) {
@@ -236,11 +230,6 @@ public class World {
 		}
 	}
 	
-	
-	
-	
-	
-	
 	/**
 	 * This signature is a little scary, but we need to support any subclass of WorldObject.
 	 * We don't know followers is a {@code List<Fish>} but it should work no matter what!
@@ -248,17 +237,17 @@ public class World {
 	 * @param followers a set of objects to follow the leader.
 	 */
 	public static void objectsFollow(WorldObject target, List<? extends WorldObject> followers) {
-//		recentPositions is a "Deque" world object list. It keeps track of the player fish movements, and keeps adding on new positions to the list.
+//		recentPositions is a "Deque" world object and a list. It keeps track of the player fish movements, and keeps adding on new positions to the list.
 //		If the size exceeds 64 (NUM_RECENT_POSITIONS) it will remove the last position on the list to make room for the newer record to be added.
 		List<IntPoint> putWhere = new ArrayList<>(target.recentPositions);
-//		Target is the player fish. (player and found were the arguments given to this method.) So basically it keeps track of the players 64 most recent positions.
+//		Target is the player fish. (player and found were the arguments given to the method objectsFollow) So basically it keeps track of the players 64 most recent positions.
 //		it only updates on stepAll when the player moves, not for any other worldObjects.
 		
-// Followers are all the fish in our found list.
+//		Followers are all the fish in our found list.
 		for (int i=0; i<followers.size(); i++) {
 
-// 			The + 1 is important because otherwise the follower position will overwrite the players position in the list. It's an issue of index position.
-//			We want the player to stay where they are and start adding on after that position.
+// 		The + 1 is important because otherwise the follower position will overwrite the players position in the list. It's an issue of index position.
+//		We want the player to stay where they are and start adding on after that position.
 			IntPoint past = putWhere.get(i+1);
 			followers.get(i).setPosition(past.x, past.y);
 		}

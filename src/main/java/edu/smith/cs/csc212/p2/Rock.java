@@ -29,24 +29,8 @@ public class Rock extends WorldObject {
 			new Color(138,129,141),
 			new Color(72,60,50)
 	};
-//	private Color color;
 	
 	public Color color;
-	
-	
-
-// Assign each rock to a number, pick a random number, get a random color, return I, pass I into the setColor(i);
-//	public Color setColor() {
-//		for (int i = 0; i < ROCK_COLORS.length; i++) {
-//			Color color = ROCK_COLORS[i];
-//		}
-//		return ROCK_COLORS[this.color];
-//		return null;
-
-		
-	
-	// TODO(lab): introduce a member here that indexes the ROCK_COLORS array.
-	
 	
 	/**
 	 * Construct a Rock in our world.
@@ -59,11 +43,6 @@ public class Rock extends WorldObject {
 //		will be randomly selected form the array of rocks, based on the array lengthy.
 //		in the draw method is where the rock actually gets its color.
 		this.color = ROCK_COLORS[rand.nextInt(ROCK_COLORS.length)];
-		
-		
-		
-		// TODO(lab): initialize your rock color index to a random number!
-		// Note that all WorldObjects have a ``rand`` available so you don't need to make one.
 	}
 
 	/**
@@ -71,7 +50,6 @@ public class Rock extends WorldObject {
 	 */
 	@Override
 	public void draw(Graphics2D g) {
-//		done i think
 //		this is where the rock gets its color, from the ROCK_COLORS array.
 		g.setColor(this.color);
 		

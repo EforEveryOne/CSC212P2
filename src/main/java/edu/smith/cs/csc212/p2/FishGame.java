@@ -61,10 +61,8 @@ public class FishGame {
 		// Add a home!
 		home = world.insertFishHome();
 
-// What does the difference matter here?
-//		public static final int NUM_ROCKS
 		Random rand = ThreadLocalRandom.current();
-		int rock_spawn = rand.nextInt(10) + 5;
+		int rock_spawn = rand.nextInt(5) + 5;
 		for (int i = 0; i < rock_spawn; i++) {
 			world.insertRockRandomly(i);
 		}
@@ -74,16 +72,20 @@ public class FishGame {
 			world.insertSnailRandomly();
 		}
 		
+//		Create FallingRock.
+		int rand_FallingRock = rand.nextInt(5)+ 3;
+		for (int i = 0; i < rand_FallingRock; i++) {
+			world.insertFallingRockRandomly(i);
+		}
+		
 		// Make the player out of the 0th fish color.
-		player = new Fish(0, world);
+		player = new Fish(0, world, false);
 		
 		// Start the player at "home".
 		player.setPosition(home.getX(), home.getY());
 		player.markAsPlayer();
 		world.register(player);
 //		"register" is what draws/creates the actual object graphics
-//		world.register(snail);
-		
 		
 		// Generate fish of all the colors but the first into the "missing" List.
 		for (int ft = 1; ft < Fish.COLORS.length; ft++) {
@@ -106,12 +108,14 @@ public class FishGame {
 	 */
 	public boolean gameOver() {
 		// TODO(P2) We want to bring the fish home before we win!
+		
 		return missing.isEmpty();
 	}
 
 	/**
 	 * Update positions of everything (the user has just pressed a button).
 	 */
+	
 	public void step() {
 		// Keep track of how long the game has run.
 		this.stepsTaken += 1;
@@ -133,19 +137,12 @@ public class FishGame {
 				
 				// Increase score when you find a fish!
 				score += 10;
-//				Use if statements to check color for fish points. Not tied to actual fish.
-//				We should also move this scoring to when the fish reach home.
-				
 			}
 		}
-		
 		// Make sure missing fish *do* something.
 		wanderMissingFish();
-		
-		
 		// When fish get added to "found" they will follow the player around.
 		World.objectsFollow(player, found);
-		
 		// Step any world-objects that run themselves.
 		world.stepAll();
 	}
@@ -156,11 +153,14 @@ public class FishGame {
 	private void wanderMissingFish() {
 		Random rand = ThreadLocalRandom.current();
 		for (Fish lost : missing) {
-			// 30% of the time, lost fish move randomly.
-			if (rand.nextDouble() < 0.3) {
-				
-//				For each lost fish, the game checks a percentage if they move, if yes, we call this method for the percentage that do move.
-				 lost.moveRandomly();
+//			If fastScared is true, they have a greater chance to move.
+			if (lost.fastScared == true && (rand.nextDouble() < 0.8)) {
+					lost.moveRandomly();
+				}
+			// Otherwise it's the same old 30% of the time, lost fish move randomly.
+			else if (rand.nextDouble() < 0.3) {
+//					For each lost fish, the game checks a percentage if they move, if yes, we call this method for the percentage that do move.
+					 lost.moveRandomly();
 			}
 		}
 	}
@@ -169,11 +169,11 @@ public class FishGame {
 	 * @param x - the x-tile.
 	 * @param y - the y-tile.
 	 */
+	
 	public void click(int x, int y) {
-		// TODO(P2) use this print to debug your World.canSwim changes!
 		System.out.println("Clicked on: "+x+","+y+ " world.canSwim(player,...)="+world.canSwim(player, x, y));
 		List<WorldObject> atPoint = world.find(x, y);
 		// TODO(P2) allow the user to click and remove rocks.
-
+		}
 	}
-}
+
