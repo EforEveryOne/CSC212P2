@@ -64,12 +64,12 @@ public class FishGame {
 // What does the difference matter here?
 //		public static final int NUM_ROCKS
 		Random rand = ThreadLocalRandom.current();
-		int rock_spawn = rand.nextInt(15);
+		int rock_spawn = rand.nextInt(10) + 5;
 		for (int i = 0; i < rock_spawn; i++) {
 			world.insertRockRandomly(i);
 		}
 //		Crating a random amount of snails.
-		int rand_snail_spawn = rand.nextInt(8);
+		int rand_snail_spawn = rand.nextInt(6) + 2;
 		for (int i = 0; i < rand_snail_spawn; i++) {
 			world.insertSnailRandomly();
 		}
@@ -91,7 +91,6 @@ public class FishGame {
 			missing.add(friend);
 		}
 	}
-	
 	
 	/**
 	 * How we tell if the game is over: if missingFishLeft() == 0.
@@ -127,7 +126,7 @@ public class FishGame {
 			// It is missing if it's in our missing list.
 			if (missing.contains(wo)) {
 				// Remove this fish from the missing list.
-//				We are explicitly telling java this is a Fish class object that we are removing.
+//				We are explicitly telling java this is a Fish class object that we are removing so it doesn't get confused.
 				missing.remove((Fish) wo);
 //				Now we add the fish to our found list (the found fish follow us around).
 				found.add((Fish) wo);
@@ -135,7 +134,7 @@ public class FishGame {
 				// Increase score when you find a fish!
 				score += 10;
 //				Use if statements to check color for fish points. Not tied to actual fish.
-				
+//				We should also move this scoring to when the fish reach home.
 				
 			}
 		}
@@ -160,12 +159,11 @@ public class FishGame {
 			// 30% of the time, lost fish move randomly.
 			if (rand.nextDouble() < 0.3) {
 				
-//				For every lost fish, the game checks a percentage if they move, if yes, we call this method for the percentage that do move.
+//				For each lost fish, the game checks a percentage if they move, if yes, we call this method for the percentage that do move.
 				 lost.moveRandomly();
 			}
 		}
 	}
-
 	/**
 	 * This gets a click on the grid. We want it to destroy rocks that ruin the game.
 	 * @param x - the x-tile.
@@ -178,5 +176,4 @@ public class FishGame {
 		// TODO(P2) allow the user to click and remove rocks.
 
 	}
-	
 }

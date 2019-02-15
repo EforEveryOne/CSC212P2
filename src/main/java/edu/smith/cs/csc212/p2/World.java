@@ -250,13 +250,21 @@ public class World {
 	public static void objectsFollow(WorldObject target, List<? extends WorldObject> followers) {
 		
 		
-		// TODO(P2) Comment this method!
-		// What is recentPositions?
-		// What is followers?
+		// TODO(P2) Comment this method!		
+		
+
 		// What is target?
-		// Why is past = putWhere[i+1]? Why not putWhere[i]?
 		List<IntPoint> putWhere = new ArrayList<>(target.recentPositions);
+//		System.out.println((target.recentPositions) + " what is this????");
+//		recentPositions is a "Deque" world object list. It keeps track of the player fish movements, and keeps adding on new positions to the list.
+//		If the size exceeds 64 (NUM_RECENT_POSITIONS) it will remove the last position on the list to make room for the newer record to be added.
+// I'm not certain why it only works with the player fish. (it only updates on stepAll when the player moves, not for any other worldObjects.)
+// I want to say it's because the player fish is the first int position that target takes.
+		
+// Followers are all the fish in our found list.
 		for (int i=0; i<followers.size(); i++) {
+
+// The + 1 is important because otherwise the follower position will overwrite the players position in the list.
 			IntPoint past = putWhere.get(i+1);
 			followers.get(i).setPosition(past.x, past.y);
 		}
